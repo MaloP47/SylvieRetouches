@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
@@ -13,7 +13,7 @@ interface HomeAdminProps {
   onLogout: () => void;
 }
 
-export function HomeAdmin({ session, onLogout }: HomeAdminProps) {
+export function HomeAdmin({ onLogout }: HomeAdminProps) {
   const navigate = useNavigate();
   const [currentView, setCurrentView] = useState<View>("dashboard");
   const [clients, setClients] = useState<Client[]>([]);
