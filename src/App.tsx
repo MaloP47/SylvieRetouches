@@ -13,7 +13,6 @@ function App() {
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
-    console.log("Setting up auth listeners...");
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
     });

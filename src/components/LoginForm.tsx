@@ -30,7 +30,6 @@ export function LoginForm({ onLogin }: LoginFormProps) {
         setTimeout(() => setIsShaking(false), 500);
       } else if (data.session) {
         onLogin(data.session);
-        console.log(data.session);
         // Check if user is admin and redirect accordingly
         const isAdmin = data.session.user.app_metadata.role === "admin";
         navigate(isAdmin ? "/homeadmin" : "/home");

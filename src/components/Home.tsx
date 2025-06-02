@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
@@ -9,29 +9,27 @@ interface HomeProps {
 }
 
 export function Home({ session, onLogout }: HomeProps) {
-  const [displayName, setDisplayName] = useState("");
-  const [currentDisplayName, setCurrentDisplayName] = useState(
-    session.user.user_metadata.display_name || ""
-  );
-  const [isRenaming, setIsRenaming] = useState(false);
   const navigate = useNavigate();
+  const [clientName, setClientName] = useState<string>("");
 
-  async function updateDisplayName() {
-    if (!session?.user) return;
+  useEffect(() => {
+    async function fetchClientName() {
+      const { data, error } = await supabase
+        .from("clients")
+        .select("name")
+        .eq("id", session.user.id)
+        .single();
 
-    const { error } = await supabase.auth.updateUser({
-      data: { display_name: displayName },
-    });
-
-    if (error) {
-      console.error("Error updating display name:", error);
-    } else {
-      console.log("Display name updated successfully");
-      setCurrentDisplayName(displayName);
-      setDisplayName(""); // Clear the input after successful update
-      setIsRenaming(false);
+      if (error) {
+        console.error("Error fetching client name:", error);
+        setClientName(session.user.email || "anon");
+      } else {
+        setClientName(data.name);
+      }
     }
-  }
+
+    fetchClientName();
+  }, [session.user.id]);
 
   async function handleSignOut() {
     const { error } = await supabase.auth.signOut();
@@ -46,51 +44,14 @@ export function Home({ session, onLogout }: HomeProps) {
       {/* Header */}
       <header className="bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="text-xl font-semibold">
-            Bienvenue, {currentDisplayName || session.user.email || "anon"}!
-          </div>
-          <div className="flex items-center gap-4">
-            {isRenaming ? (
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  value={displayName}
-                  onChange={(e) => setDisplayName(e.target.value)}
-                  placeholder="Nouveau nom"
-                  className="px-3 py-1 border rounded text-sm"
-                />
-                <button
-                  type="button"
-                  onClick={updateDisplayName}
-                  className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition-colors text-sm"
-                >
-                  Valider
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setIsRenaming(false)}
-                  className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors text-sm"
-                >
-                  Annuler
-                </button>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setIsRenaming(true)}
-                className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors text-sm"
-              >
-                Renommer
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={handleSignOut}
-              className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm"
-            >
-              Déconnexion
-            </button>
-          </div>
+          <div className="text-xl font-semibold">Bienvenue, {clientName}!</div>
+          <button
+            type="button"
+            onClick={handleSignOut}
+            className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm"
+          >
+            Déconnexion
+          </button>
         </div>
       </header>
 
