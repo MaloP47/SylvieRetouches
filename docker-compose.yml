@@ -1,37 +1,19 @@
 services:
   app:
-    container_name: sylvie-retouches
     build:
       context: .
       dockerfile: Dockerfile
-    expose:
-      - "80"
-    env_file:
-      - .env
-    restart: unless-stopped
-
-  nginx:
-    image: nginx:latest
-    container_name: nginx_proxy
+    image: retouches-megeve
+    container_name: retouches-megeve
     ports:
       - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./certbot/webroot:/var/www/certbot
-      - ./certbot/conf:/etc/letsencrypt
-    depends_on:
-      - app
     restart: unless-stopped
+    networks:
+      - retouches-megeve
+    env_file:
+      - .env
 
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/webroot:/var/www/certbot
-    entrypoint: ""
-    command: >
-      certonly --webroot --webroot-path=/var/www/certbot
-      --email mpeulet@gmail.com --agree-tos --no-eff-email
-      -d retouches-megeve.com
+networks:
+  retouches-megeve:
+    name: retouches-megeve
+
