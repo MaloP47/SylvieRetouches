@@ -1,13 +1,21 @@
+
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: retouches-megeve
+    image: retouches-megeve:v0
     container_name: retouches-megeve
     ports:
       - "80:80"
+      - "443:443"
     restart: unless-stopped
+
+    # <-- On remplace les volumes nommés par des bind-mounts hôtes -->
+    volumes:
+      - /home/ubuntu/certbot-data/www:/var/www/certbot
+      - /home/ubuntu/certbot-data/conf:/etc/letsencrypt:ro
+
     networks:
       - retouches-megeve
     env_file:
@@ -16,4 +24,3 @@ services:
 networks:
   retouches-megeve:
     name: retouches-megeve
-
