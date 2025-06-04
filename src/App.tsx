@@ -64,9 +64,9 @@ function App() {
                 <Navigate to="/home" replace />
               )
             ) : (
-              <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-gray-100">
+
                 <LoginForm onLogin={setSession} />
-              </div>
+
             )
           }
         />
