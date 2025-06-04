@@ -35,8 +35,8 @@ export function LandingPage({ session, onLogout }: LandingPageProps) {
                     onClick={() =>
                       navigate(
                         session.user.app_metadata.role === "admin"
-                          ? "/homeadmin"
-                          : "/home"
+                          ? "/tableau-de-bord"
+                          : "/mon-espace"
                       )
                     }
                     className="px-4 py-2 text-blue-600 hover:text-blue-700 transition-colors text-l"
@@ -52,7 +52,7 @@ export function LandingPage({ session, onLogout }: LandingPageProps) {
                 </>
               ) : (
                 <button
-                  onClick={() => navigate("/login")}
+                  onClick={() => navigate("/connexion")}
                   className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                   Accéder à mon espace
@@ -88,7 +88,7 @@ export function LandingPage({ session, onLogout }: LandingPageProps) {
                 <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
                   <div className="rounded-md shadow">
                     <button
-                      onClick={() => navigate("/login")}
+                      onClick={() => navigate("/connexion")}
                       className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
                     >
                       Commencer

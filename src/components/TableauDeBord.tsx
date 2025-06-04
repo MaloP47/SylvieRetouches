@@ -2,18 +2,18 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
-import type { Client, ClientType, View } from "./HomeAdmin/types";
-import { DashboardView } from "./HomeAdmin/DashboardView";
-import { ClientsView } from "./HomeAdmin/ClientsView";
-import { RetouchesView } from "./HomeAdmin/RetouchesView";
-import { Navigation } from "./HomeAdmin/Navigation";
+import type { Client, ClientType, View } from "./TableauDeBord/types";
+import { DashboardView } from "./TableauDeBord/DashboardView";
+import { ClientsView } from "./TableauDeBord/ClientsView";
+import { RetouchesView } from "./TableauDeBord/RetouchesView";
+import { Navigation } from "./TableauDeBord/Navigation";
 
-interface HomeAdminProps {
+interface TableauDeBordProps {
   session: Session;
   onLogout: () => void;
 }
 
-export function HomeAdmin({ onLogout }: HomeAdminProps) {
+export function TableauDeBord({ onLogout }: TableauDeBordProps) {
   const navigate = useNavigate();
   const [currentView, setCurrentView] = useState<View>("dashboard");
   const [clients, setClients] = useState<Client[]>([]);
@@ -126,7 +126,7 @@ export function HomeAdmin({ onLogout }: HomeAdminProps) {
         <div className="w-full px-8 py-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
             <button
-              onClick={() => navigate("/landing")}
+              onClick={() => navigate("/")}
               className="hover:opacity-80 transition-opacity"
             >
               <img src="/sylvie3.png" alt="Logo" className="h-20 w-auto" />
@@ -135,7 +135,7 @@ export function HomeAdmin({ onLogout }: HomeAdminProps) {
           </div>
           <div className="flex items-center gap-4">
             <button
-              onClick={() => navigate("/landing")}
+              onClick={() => navigate("/")}
               className="px-4 py-2 text-blue-600 hover:text-blue-700 transition-colors text-l"
             >
               Retour à l'accueil

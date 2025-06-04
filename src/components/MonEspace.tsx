@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
 
-interface HomeProps {
+interface MonEspaceProps {
   session: Session;
   onLogout: () => void;
 }
 
-export function Home({ session, onLogout }: HomeProps) {
+export function MonEspace({ session, onLogout }: MonEspaceProps) {
   const navigate = useNavigate();
   const [clientName, setClientName] = useState<string>("");
 
@@ -46,7 +46,7 @@ export function Home({ session, onLogout }: HomeProps) {
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
             <button
-              onClick={() => navigate("/landing")}
+              onClick={() => navigate("/")}
               className="hover:opacity-80 transition-opacity"
             >
               <img src="/sylvie3.png" alt="Logo" className="h-16 w-auto" />
@@ -57,7 +57,7 @@ export function Home({ session, onLogout }: HomeProps) {
           </div>
           <div className="flex items-center gap-4">
             <button
-              onClick={() => navigate("/landing")}
+              onClick={() => navigate("/")}
               className="px-4 py-2 text-blue-600 hover:text-blue-700 transition-colors text-l"
             >
               Retour à l'accueil

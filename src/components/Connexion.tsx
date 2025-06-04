@@ -3,11 +3,11 @@ import { useNavigate, Link } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
 
-interface LoginFormProps {
+interface ConnexionProps {
   onLogin: (session: Session) => void;
 }
 
-export function LoginForm({ onLogin }: LoginFormProps) {
+export function Connexion({ onLogin }: ConnexionProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -38,7 +38,7 @@ export function LoginForm({ onLogin }: LoginFormProps) {
       } else if (data.session) {
         onLogin(data.session);
         const isAdmin = data.session.user.app_metadata.role === "admin";
-        navigate(isAdmin ? "/homeadmin" : "/home");
+        navigate(isAdmin ? "/tableau-de-bord" : "/mon-espace");
       }
     } catch (error) {
       console.error("Unexpected error during sign in:", error);

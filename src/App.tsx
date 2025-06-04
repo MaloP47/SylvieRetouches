@@ -2,11 +2,12 @@ import "./style.css";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
-import { LoginForm } from "./components/LoginForm";
-import { Home } from "./components/Home";
-import { HomeAdmin } from "./components/HomeAdmin";
+import { Connexion } from "./components/Connexion";
+import { MonEspace } from "./components/MonEspace";
+import { TableauDeBord } from "./components/TableauDeBord";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { LandingPage } from "./components/LandingPage";
+import { NotFound } from "./components/NotFound";
 import { supabase } from "./lib/supabase";
 
 function App() {
@@ -34,65 +35,47 @@ function App() {
         <Route
           path="/"
           element={
-            session ? (
-              isAdmin ? (
-                <Navigate to="/homeadmin" replace />
-              ) : (
-                <Navigate to="/home" replace />
-              )
-            ) : (
-              <LandingPage
-                session={session}
-                onLogout={() => setSession(null)}
-              />
-            )
-          }
-        />
-        <Route
-          path="/landing"
-          element={
             <LandingPage session={session} onLogout={() => setSession(null)} />
           }
         />
         <Route
-          path="/login"
+          path="/connexion"
           element={
             session ? (
               isAdmin ? (
-                <Navigate to="/homeadmin" replace />
+                <Navigate to="/tableau-de-bord" replace />
               ) : (
-                <Navigate to="/home" replace />
+                <Navigate to="/mon-espace" replace />
               )
             ) : (
-
-                <LoginForm onLogin={setSession} />
-
+              <Connexion onLogin={setSession} />
             )
           }
         />
         <Route
-          path="/home"
+          path="/mon-espace"
           element={
             <ProtectedRoute session={session}>
-              <Home session={session!} onLogout={() => setSession(null)} />
+              <MonEspace session={session!} onLogout={() => setSession(null)} />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/homeadmin"
+          path="/tableau-de-bord"
           element={
             <ProtectedRoute session={session}>
               {isAdmin ? (
-                <HomeAdmin
+                <TableauDeBord
                   session={session!}
                   onLogout={() => setSession(null)}
                 />
               ) : (
-                <Navigate to="/home" replace />
+                <Navigate to="/mon-espace" replace />
               )}
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
