@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Bloquer les accès aux fichiers sensibles
+Disallow: /.env
+Disallow: /.git
+Disallow: /.htaccess
+
+# Sitemap
+Sitemap: https://retouches-megeve.com/sitemap.xml

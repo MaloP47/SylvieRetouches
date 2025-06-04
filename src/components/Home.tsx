@@ -1,14 +1,13 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
 
-interface LandingPageProps {
+interface HomeProps {
   session: Session | null;
   onLogout?: () => void;
 }
 
-export function LandingPage({ session, onLogout }: LandingPageProps) {
+export function Home({ session, onLogout }: HomeProps) {
   const navigate = useNavigate();
 
   const handleSignOut = async () => {

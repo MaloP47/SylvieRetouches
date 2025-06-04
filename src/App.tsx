@@ -6,7 +6,7 @@ import { Connexion } from "./components/Connexion";
 import { MonEspace } from "./components/MonEspace";
 import { TableauDeBord } from "./components/TableauDeBord";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { LandingPage } from "./components/LandingPage";
+import { Home } from "./components/Home";
 import { NotFound } from "./components/NotFound";
 import { supabase } from "./lib/supabase";
 
@@ -34,9 +34,7 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={
-            <LandingPage session={session} onLogout={() => setSession(null)} />
-          }
+          element={<Home session={session} onLogout={() => setSession(null)} />}
         />
         <Route
           path="/connexion"
