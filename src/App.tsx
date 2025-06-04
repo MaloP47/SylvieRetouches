@@ -6,6 +6,7 @@ import { LoginForm } from "./components/LoginForm";
 import { Home } from "./components/Home";
 import { HomeAdmin } from "./components/HomeAdmin";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { LandingPage } from "./components/LandingPage";
 import { supabase } from "./lib/supabase";
 
 function App() {
@@ -32,6 +33,29 @@ function App() {
       <Routes>
         <Route
           path="/"
+          element={
+            session ? (
+              isAdmin ? (
+                <Navigate to="/homeadmin" replace />
+              ) : (
+                <Navigate to="/home" replace />
+              )
+            ) : (
+              <LandingPage
+                session={session}
+                onLogout={() => setSession(null)}
+              />
+            )
+          }
+        />
+        <Route
+          path="/landing"
+          element={
+            <LandingPage session={session} onLogout={() => setSession(null)} />
+          }
+        />
+        <Route
+          path="/login"
           element={
             session ? (
               isAdmin ? (

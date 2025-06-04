@@ -9,9 +9,14 @@ export default {
           "10%, 30%, 50%, 70%, 90%": { transform: "translateX(-4px)" },
           "20%, 40%, 60%, 80%": { transform: "translateX(4px)" },
         },
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
       },
       animation: {
         shake: "shake 0.5s cubic-bezier(.36,.07,.19,.97) both",
+        "fade-in": "fade-in 1s ease-out",
       },
     },
   },

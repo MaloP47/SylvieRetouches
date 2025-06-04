@@ -125,16 +125,29 @@ export function HomeAdmin({ onLogout }: HomeAdminProps) {
       <header className="bg-pink-100 shadow-md">
         <div className="w-full px-8 py-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
-            <img src="/sylvie3.png" alt="Logo" className="h-20 w-auto" />
+            <button
+              onClick={() => navigate("/landing")}
+              className="hover:opacity-80 transition-opacity"
+            >
+              <img src="/sylvie3.png" alt="Logo" className="h-20 w-auto" />
+            </button>
             <div className="text-3xl font-semibold">Bienvenue Sylvie !</div>
           </div>
-          <button
-            type="button"
-            onClick={handleSignOut}
-            className="px-4 py-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-l"
-          >
-            Déconnexion
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => navigate("/landing")}
+              className="px-4 py-2 text-blue-600 hover:text-blue-700 transition-colors text-l"
+            >
+              Retour à l'accueil
+            </button>
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="px-4 py-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-l"
+            >
+              Déconnexion
+            </button>
+          </div>
         </div>
       </header>
 

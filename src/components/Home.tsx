@@ -44,14 +44,32 @@ export function Home({ session, onLogout }: HomeProps) {
       {/* Header */}
       <header className="bg-white shadow-md">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="text-xl font-semibold">Bienvenue, {clientName}!</div>
-          <button
-            type="button"
-            onClick={handleSignOut}
-            className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-sm"
-          >
-            Déconnexion
-          </button>
+          <div className="flex items-center gap-6">
+            <button
+              onClick={() => navigate("/landing")}
+              className="hover:opacity-80 transition-opacity"
+            >
+              <img src="/sylvie3.png" alt="Logo" className="h-16 w-auto" />
+            </button>
+            <div className="text-2xl font-semibold">
+              Bienvenue, {clientName}!
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => navigate("/landing")}
+              className="px-4 py-2 text-blue-600 hover:text-blue-700 transition-colors text-l"
+            >
+              Retour à l'accueil
+            </button>
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-l"
+            >
+              Déconnexion
+            </button>
+          </div>
         </div>
       </header>
 
