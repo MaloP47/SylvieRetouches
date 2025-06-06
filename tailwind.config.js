@@ -3,6 +3,13 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      colors: {
+        "misty-rose": "#FDD9DA",
+        "coral-pink": "#E29990",
+        "melon": "#F7BCB9",
+        "light-coral": "#DE8B81",
+        "coral-pink-2": "#E09389",
+      },
       keyframes: {
         shake: {
           "0%, 100%": { transform: "translateX(0)" },

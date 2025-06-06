@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
-import type { Client, ClientType, View } from "./TableauDeBord/types";
-import { DashboardView } from "./TableauDeBord/DashboardView";
-import { ClientsView } from "./TableauDeBord/ClientsView";
-import { RetouchesView } from "./TableauDeBord/RetouchesView";
-import { Navigation } from "./TableauDeBord/Navigation";
+import type { Client, ClientType, View } from "../types/clients";
+import { DashboardView } from "../components/DashboardView";
+import { ClientsView } from "../components/ClientsView";
+import { RetouchesView } from "../components/RetouchesView";
+import { Navigation } from "../components/Navigation";
 
 interface TableauDeBordProps {
   session: Session;
@@ -120,9 +120,9 @@ export function TableauDeBord({ onLogout }: TableauDeBordProps) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-misty-rose">
       {/* Header */}
-      <header className="bg-pink-100 shadow-md">
+      <header className="bg-white shadow-md">
         <div className="w-full px-8 py-4 flex justify-between items-center">
           <div className="flex items-center gap-6">
             <button
@@ -131,19 +131,21 @@ export function TableauDeBord({ onLogout }: TableauDeBordProps) {
             >
               <img src="/sylvie3.png" alt="Logo" className="h-20 w-auto" />
             </button>
-            <div className="text-3xl font-semibold">Bienvenue Sylvie !</div>
+            <div className="text-3xl font-semibold text-coral-pink">
+              Bienvenue Sylvie !
+            </div>
           </div>
           <div className="flex items-center gap-4">
             <button
               onClick={() => navigate("/")}
-              className="px-4 py-2 text-blue-600 hover:text-blue-700 transition-colors text-l"
+              className="px-4 py-2 text-coral-pink hover:text-light-coral transition-colors text-l"
             >
               Retour à l'accueil
             </button>
             <button
               type="button"
               onClick={handleSignOut}
-              className="px-4 py-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors text-l"
+              className="px-4 py-4 bg-coral-pink text-white rounded hover:bg-light-coral transition-colors text-l focus:ring-2 focus:ring-melon focus:ring-offset-2"
             >
               Déconnexion
             </button>
@@ -152,7 +154,7 @@ export function TableauDeBord({ onLogout }: TableauDeBordProps) {
       </header>
 
       {/* Main Content with Navigation */}
-      <div className="flex-1 flex bg-blue-300">
+      <div className="flex-1 flex bg-melon/30">
         <Navigation currentView={currentView} onViewChange={setCurrentView} />
         <main className="flex-1 p-8">{renderContent()}</main>
       </div>

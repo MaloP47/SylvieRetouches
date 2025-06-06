@@ -1,5 +1,5 @@
 import React from "react";
-import type { View } from "./types";
+import type { View } from "../../types/clients.ts";
 
 interface NavigationProps {
   currentView: View;
@@ -11,16 +11,16 @@ export const Navigation: React.FC<NavigationProps> = ({
   onViewChange,
 }) => {
   return (
-    <nav className="w-64 bg-yellow-300 shadow-md">
+    <nav className="w-64 bg-white shadow-md">
       <div className="p-6">
         <ul className="space-y-4">
           <li>
             <button
               onClick={() => onViewChange("dashboard")}
-              className={`w-full text-left text-lg px-6 py-4 rounded ${
+              className={`w-full text-left text-lg px-6 py-4 rounded transition-colors ${
                 currentView === "dashboard"
-                  ? "bg-blue-500 text-white"
-                  : "hover:bg-gray-100"
+                  ? "bg-coral-pink text-white"
+                  : "text-coral-pink hover:bg-melon/50"
               }`}
             >
               Tableau de bord
@@ -29,10 +29,10 @@ export const Navigation: React.FC<NavigationProps> = ({
           <li>
             <button
               onClick={() => onViewChange("clients")}
-              className={`w-full text-left text-lg px-6 py-4 rounded ${
+              className={`w-full text-left text-lg px-6 py-4 rounded transition-colors ${
                 currentView === "clients"
-                  ? "bg-blue-500 text-white"
-                  : "hover:bg-gray-100"
+                  ? "bg-coral-pink text-white"
+                  : "text-coral-pink hover:bg-melon/50"
               }`}
             >
               Gestion des clients
@@ -41,10 +41,10 @@ export const Navigation: React.FC<NavigationProps> = ({
           <li>
             <button
               onClick={() => onViewChange("retouches")}
-              className={`w-full text-left text-lg px-6 py-4 rounded ${
+              className={`w-full text-left text-lg px-6 py-4 rounded transition-colors ${
                 currentView === "retouches"
-                  ? "bg-blue-500 text-white"
-                  : "hover:bg-gray-100"
+                  ? "bg-coral-pink text-white"
+                  : "text-coral-pink hover:bg-melon/50"
               }`}
             >
               Retouches

@@ -1,14 +1,14 @@
-import "./style.css";
+import "../style.css";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
-import { Connexion } from "./components/Connexion";
-import { MonEspace } from "./components/MonEspace";
-import { TableauDeBord } from "./components/TableauDeBord";
-import { ProtectedRoute } from "./components/ProtectedRoute";
-import { Home } from "./components/Home";
-import { NotFound } from "./components/NotFound";
-import { supabase } from "./lib/supabase";
+import { Connexion } from "../pages/Connexion";
+import { MonEspace } from "../pages/MonEspace";
+import { TableauDeBord } from "../pages/TableauDeBord";
+import { ProtectedRoute } from "./ProtectedRoute";
+import { Home } from "../pages/Home";
+import { NotFound } from "../pages/NotFound";
+import { supabase } from "../lib/supabase";
 
 function App() {
   const [session, setSession] = useState<Session | null>(null);

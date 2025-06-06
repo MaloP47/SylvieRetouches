@@ -1,5 +1,5 @@
 import React from "react";
-import type { Client, ClientType } from "./types";
+import type { Client, ClientType } from "../../types/clients";
 
 interface ClientTableProps {
   clients: Client[];
