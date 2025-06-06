@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
 import { FcUndo } from "react-icons/fc";
+import { IoArrowUndo } from "react-icons/io5";
 
 interface ConnexionProps {
   onLogin: (session: Session) => void;
@@ -51,17 +52,18 @@ export function Connexion({ onLogin }: ConnexionProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-misty-rose to-white flex flex-col items-center justify-center p-4">
+    // <div className="min-h-screen bg-gradient-to-b from-misty-rose to-white flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
       <Link
         to="/"
-        className="absolute top-4 left-4 text-coral-pink hover:text-light-coral transition-colors"
+        className="absolute top-4 left-4 text-coral-pink hover:text-light-coral transition-colors flex items-center gap-2"
       >
-        <FcUndo className="h-6 w-6" />
+        <IoArrowUndo className="h-6 w-6" />
         <span className="text-coral-pink">Retour à l'accueil</span>
       </Link>
 
       <div
-        className={`relative p-8 rounded-lg shadow-lg w-96 max-w-full ${
+        className={`relative p-16 rounded-lg shadow-lg w-96 max-w-full border-2 border-coral-pink ${
           isShaking ? "animate-shake" : ""
         }`}
         style={{
@@ -70,13 +72,13 @@ export function Connexion({ onLogin }: ConnexionProps) {
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 bg-white/10 rounded-lg"></div>
+        <div className="absoluteinset-0 bg-white/10 rounded-lg"></div>
         <div className="relative z-10">
-          <h1 className="text-2xl font-bold mb-6 text-center text-coral-pink">
+          <h1 className="text-2xl font-bold mb-6 text-center text-white/80">
             Connexion
           </h1>
 
-          <div className="bg-melon/80 p-4 rounded-lg mb-6 text-sm text-coral-pink">
+          <div className="bg-melon/50 p-4 rounded-lg mb-6 text-sm text-center text-black/80">
             <p className="mb-2">
               Cette page est réservée aux personnes titulaires d'un compte.
             </p>
