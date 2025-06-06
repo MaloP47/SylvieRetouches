@@ -1,12 +1,13 @@
 import React from "react";
+import type { CategoryL2 } from "../types/alteration";
 import {
-  FcBusinessman,
-  FcBusinesswoman,
-  FcHome,
-  FcReading,
-  FcShop,
-} from "react-icons/fc";
-import type { CategoryL2 } from "../../types/alteration";
+  WomanIcon,
+  ManIcon,
+  KidIcon,
+  HomeIcon,
+  OtherIcon,
+  AccessoriesIcon,
+} from "./icons/l2Icons";
 
 interface CategoryIconProps {
   category: CategoryL2;
@@ -19,15 +20,17 @@ export const CategoryIcon: React.FC<CategoryIconProps> = ({
 }) => {
   switch (category) {
     case "woman":
-      return <FcBusinesswoman className={className} />;
+      return <WomanIcon className={className} />;
     case "man":
-      return <FcBusinessman className={className} />;
+      return <ManIcon className={className} />;
     case "kid":
-      return <FcReading className={className} />;
+      return <KidIcon className={className} />;
     case "home":
-      return <FcHome className={className} />;
+      return <HomeIcon className={className} />;
     case "other":
-      return <FcShop className={className} />;
+      return <OtherIcon className={className} />;
+    case "accessories":
+      return <AccessoriesIcon className={className} />;
     default:
       return null;
   }
@@ -40,6 +43,7 @@ export const getCategoryLabel = (category: CategoryL2): string => {
     kid: "Enfant",
     home: "Maison",
     other: "Autre",
+    accessories: "Accessoires",
   };
   return labels[category];
 };

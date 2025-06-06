@@ -1,4 +1,4 @@
-export type CategoryL2 = "woman" | "man" | "kid" | "other" | "home";
+export type CategoryL2 = "woman" | "man" | "kid" | "other" | "home" | "accessories";
 export type CategoryL3 =
   | "underwear"
   | "socks"

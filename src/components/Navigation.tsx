@@ -28,18 +28,6 @@ export const Navigation: React.FC<NavigationProps> = ({
           </li>
           <li>
             <button
-              onClick={() => onViewChange("clients")}
-              className={`w-full text-left text-lg px-6 py-4 rounded transition-colors ${
-                currentView === "clients"
-                  ? "bg-coral-pink text-white"
-                  : "text-coral-pink hover:bg-melon/50"
-              }`}
-            >
-              Gestion des clients
-            </button>
-          </li>
-          <li>
-            <button
               onClick={() => onViewChange("retouches")}
               className={`w-full text-left text-lg px-6 py-4 rounded transition-colors ${
                 currentView === "retouches"
@@ -48,6 +36,18 @@ export const Navigation: React.FC<NavigationProps> = ({
               }`}
             >
               Retouches
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => onViewChange("clients")}
+              className={`w-full text-left text-lg px-6 py-4 rounded transition-colors ${
+                currentView === "clients"
+                  ? "bg-coral-pink text-white"
+                  : "text-coral-pink hover:bg-melon/50"
+              }`}
+            >
+              Gestion des clients
             </button>
           </li>
         </ul>

@@ -97,7 +97,7 @@ export const CreateAlterationWorkflow: React.FC<
         Sélectionnez une catégorie principale
       </h3>
       <div className="grid grid-cols-2 gap-6">
-        {(["woman", "man", "kid", "other", "home"] as CategoryL2[]).map(
+        {(["woman", "man", "kid", "other", "home", "accessories"] as CategoryL2[]).map(
           (category) => (
             <button
               key={category}
