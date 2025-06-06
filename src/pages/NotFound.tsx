@@ -22,24 +22,9 @@ export const NotFound = () => {
                   Désolé, la page que vous recherchez n'existe pas ou a été
                   déplacée.
                 </p>
-
-                {/* <div className="bg-melon/50 p-4 rounded-lg text-sm text-justify text-black/80">
-                  <p>
-                    Vous pouvez retourner à la page précédente ou revenir à
-                    l'accueil.
-                  </p>
-                </div> */}
               </div>
 
               <div className="flex items-center gap-4 justify-center">
-                {/* <button
-                  onClick={() => window.history.back()}
-                  className="px-6 py-2 text-coral-pink hover:text-light-coral transition-colors flex items-center gap-2"
-                >
-                  <IoArrowUndo className="h-5 w-5" />
-                  <span>Retour</span>
-                </button> */}
-
                 <Link
                   to="/"
                   className="px-6 py-2 bg-coral-pink text-white rounded hover:bg-light-coral transition-colors focus:ring-2 focus:ring-melon focus:ring-offset-2"
