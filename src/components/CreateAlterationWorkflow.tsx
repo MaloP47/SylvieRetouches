@@ -20,6 +20,7 @@ export const CreateAlterationWorkflow: React.FC<
     useState<CategoryL2 | null>(null);
   const [selectedCategoryL3, setSelectedCategoryL3] =
     useState<CategoryL3 | null>(null);
+  const [selectedFabric, setSelectedFabric] = useState<string[]>([]);
 
   const handleCategoryL2Select = (category: CategoryL2) => {
     setSelectedCategoryL2(category);
@@ -28,10 +29,15 @@ export const CreateAlterationWorkflow: React.FC<
 
   const handleCategoryL3Select = (category: CategoryL3) => {
     setSelectedCategoryL3(category);
-    // Ici nous ajouterons la logique pour passer à l'étape suivante
-    console.log("Catégories sélectionnées:", {
-      l2: selectedCategoryL2,
-      l3: category,
+    setCurrentStep("fabric");
+  };
+
+  const handleFabricSelect = (fabric: string) => {
+    setSelectedFabric((prev) => {
+      if (prev.includes(fabric)) {
+        return prev.filter((f) => f !== fabric);
+      }
+      return [...prev, fabric];
     });
   };
 
@@ -49,6 +55,39 @@ export const CreateAlterationWorkflow: React.FC<
           className="bg-blue-600 h-2.5 rounded-full transition-all duration-300"
           style={{ width: `${progress}%` }}
         ></div>
+      </div>
+    );
+  };
+
+  const renderRecap = () => {
+    return (
+      <div className="bg-gray-50 p-4 rounded-lg mb-6">
+        <h4 className="text-sm font-semibold text-gray-600 mb-2">
+          Récapitulatif
+        </h4>
+        <div className="space-y-2">
+          {selectedCategoryL2 && (
+            <div className="flex items-center gap-2">
+              <CategoryIcon
+                category={selectedCategoryL2}
+                className="w-5 h-5 text-blue-500"
+              />
+              <span className="text-sm capitalize">
+                {getCategoryLabel(selectedCategoryL2)}
+              </span>
+            </div>
+          )}
+          {selectedCategoryL3 && (
+            <div className="text-sm capitalize ml-7">
+              → {selectedCategoryL3}
+            </div>
+          )}
+          {selectedFabric.length > 0 && (
+            <div className="text-sm ml-7">
+              → Tissus: {selectedFabric.join(", ")}
+            </div>
+          )}
+        </div>
       </div>
     );
   };
@@ -97,23 +136,30 @@ export const CreateAlterationWorkflow: React.FC<
         Sélectionnez une catégorie principale
       </h3>
       <div className="grid grid-cols-2 gap-6">
-        {(["woman", "man", "kid", "other", "home", "accessories"] as CategoryL2[]).map(
-          (category) => (
-            <button
-              key={category}
-              onClick={() => handleCategoryL2Select(category)}
-              className="p-6 border rounded-lg hover:bg-blue-50 transition-colors flex flex-col items-center gap-3 group"
-            >
-              <div className="text-blue-500 group-hover:text-blue-600">
-                <CategoryIcon category={category} className="w-12 h-12" />
-              </div>
-              <span className="text-lg font-medium capitalize">
-                {getCategoryLabel(category)}
-              </span>
-              <span className="text-sm text-gray-500">{category}</span>
-            </button>
-          )
-        )}
+        {(
+          [
+            "woman",
+            "man",
+            "kid",
+            "other",
+            "home",
+            "accessories",
+          ] as CategoryL2[]
+        ).map((category) => (
+          <button
+            key={category}
+            onClick={() => handleCategoryL2Select(category)}
+            className="p-6 border rounded-lg hover:bg-blue-50 transition-colors flex flex-col items-center gap-3 group"
+          >
+            <div className="text-blue-500 group-hover:text-blue-600">
+              <CategoryIcon category={category} className="w-12 h-12" />
+            </div>
+            <span className="text-lg font-medium capitalize">
+              {getCategoryLabel(category)}
+            </span>
+            <span className="text-sm text-gray-500">{category}</span>
+          </button>
+        ))}
       </div>
     </div>
   );
@@ -163,9 +209,64 @@ export const CreateAlterationWorkflow: React.FC<
     </div>
   );
 
+  const renderFabricStep = () => (
+    <div className="space-y-6">
+      <div className="flex items-center gap-4 mb-4">
+        <button
+          onClick={() => setCurrentStep("category_l3")}
+          className="text-blue-500 hover:text-blue-700"
+        >
+          ← Retour
+        </button>
+        <h3 className="text-xl font-semibold">Sélectionnez le(s) tissu(s)</h3>
+      </div>
+      <div className="grid grid-cols-3 gap-4">
+        {[
+          "Coton",
+          "Laine",
+          "Soie",
+          "Lin",
+          "Polyester",
+          "Viscose",
+          "Denim",
+          "Cuir",
+          "Velours",
+          "Tweed",
+          "Jersey",
+          "Satin",
+        ].map((fabric) => (
+          <button
+            key={fabric}
+            onClick={() => handleFabricSelect(fabric)}
+            className={`p-4 border rounded-lg transition-colors text-left ${
+              selectedFabric.includes(fabric)
+                ? "bg-blue-50 border-blue-500"
+                : "hover:bg-blue-50"
+            }`}
+          >
+            {fabric}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderCurrentStep = () => {
+    switch (currentStep) {
+      case "category_l2":
+        return renderCategoryL2Step();
+      case "category_l3":
+        return renderCategoryL3Step();
+      case "fabric":
+        return renderFabricStep();
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-lg p-8 max-w-6xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Nouvelle retouche</h2>
           <button
@@ -176,25 +277,30 @@ export const CreateAlterationWorkflow: React.FC<
           </button>
         </div>
 
-        {renderProgressBar()}
+        <div className="grid grid-cols-2 gap-8">
+          {/* Left column - Main content */}
+          <div>
+            <div className="mb-6">
+              <h3 className="text-lg font-medium text-gray-700">
+                {WORKFLOW_STEPS.find((step) => step.id === currentStep)?.label}
+              </h3>
+              <p className="text-sm text-gray-500">
+                {
+                  WORKFLOW_STEPS.find((step) => step.id === currentStep)
+                    ?.description
+                }
+              </p>
+            </div>
+            {renderCurrentStep()}
+          </div>
 
-        <div className="mb-6">
-          <h3 className="text-lg font-medium text-gray-700">
-            {WORKFLOW_STEPS.find((step) => step.id === currentStep)?.label}
-          </h3>
-          <p className="text-sm text-gray-500">
-            {
-              WORKFLOW_STEPS.find((step) => step.id === currentStep)
-                ?.description
-            }
-          </p>
+          {/* Right column - Progress and summary */}
+          <div className="border-l pl-8">
+            {renderProgressBar()}
+            {renderRecap()}
+            {renderStepSummary()}
+          </div>
         </div>
-
-        {currentStep === "category_l2"
-          ? renderCategoryL2Step()
-          : renderCategoryL3Step()}
-
-        {renderStepSummary()}
       </div>
     </div>
   );
